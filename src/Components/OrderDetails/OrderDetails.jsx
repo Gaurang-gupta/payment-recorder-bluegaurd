@@ -92,15 +92,7 @@ function OrderDetails() {
     const TDate = (e) => {
         const { name, value } = e.target;
         const userDate = value;
-        const ToDate = new Date();
-    
-        if (new Date(userDate).getTime() <= ToDate.getTime()) {
-              alert("The Date must be Bigger or Equal to today date");
-              return false;
-        }
-        console.log(userDate)
         setDateData(userDate)
-        return true;
     }
 
     const addData = (e) => {

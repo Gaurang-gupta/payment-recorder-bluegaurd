@@ -66,8 +66,8 @@ function Invoice({ invoice }) {
                 </div>
             </div>
             {/* line */}
-            <div className='w-[750px] mx-auto flex justify-between items-center border-t pl-1'>
-                Breath of Fresh Air
+            <div className='w-[750px] mx-auto flex justify-between items-center border-t pl-1 uppercase text-center'>
+                Breathe Fresh Clean Air
             </div>
             {/* Heading customer details */}
             <div className='w-[750px] mx-auto border-t font-bold bg-slate-100  pl-1'>

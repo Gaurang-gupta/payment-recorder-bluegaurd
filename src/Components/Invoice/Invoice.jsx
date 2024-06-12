@@ -31,8 +31,8 @@ function Invoice({ invoice }) {
         let day = date?.getDate();
         let month = date?.getMonth() + 1;
         let year = date?.getFullYear();
-
-        let currentDate = `${day}-${month}-${year}`;
+        const monthTable = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        let currentDate = `${day}-${monthTable[month-1]}-${year}`;
         return currentDate
     }
 
@@ -66,7 +66,7 @@ function Invoice({ invoice }) {
                 </div>
             </div>
             {/* line */}
-            <div className='w-[750px] mx-auto flex justify-between items-center border-t pl-1 uppercase text-center'>
+            <div className='w-[750px] mx-auto flex justify-around items-center border-t uppercase'>
                 Breathe Fresh Clean Air
             </div>
             {/* Heading customer details */}

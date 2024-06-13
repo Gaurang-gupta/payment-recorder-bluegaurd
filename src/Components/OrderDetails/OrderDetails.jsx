@@ -40,6 +40,9 @@ function OrderDetails() {
     const [taxState, setTaxState] = useState("")
     const [taxSlab, setTaxSlab] = useState(0)
 
+    // for comments
+    const [comments, setComments] = useState("")
+
 
     const handleSelectedValueChange = (event) => {
         setSelectedValue(event.target.value);
@@ -60,7 +63,8 @@ function OrderDetails() {
             serviceAvailable: selectedServices,
             price: subtotal(),
             taxSlab: taxSlab,
-            taxState: taxState
+            taxState: taxState,
+            comments: comments,
         })
         // Redirect to the next page
         history('/confirm');
@@ -147,13 +151,16 @@ function OrderDetails() {
                         <label htmlFor="nextServiceDate" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Next Service Date:</label>
                         <input type="date" id="nextServiceDate" name="nextServiceDate" value={dateData} onChange={TDate} className={inputStyle} required/>
                     </div>
-                    
+                    <div className={divStyle}>
+                        <label htmlFor="comments" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Comments:</label>
+                        <textarea id="comments" name="comments" value={comments} onChange={(e) => setComments(e.target.value)} className={inputStyle} required/>
+                    </div>
                     
                 </div>
                 <div className='flex-1'>
-                    <h1 className='text-xl text-center'>Services</h1>
+                    <h1 className='text-xl text-center mb-1'>Services</h1>
                     {selectedServices.map(service => (
-                        <div className='flex justify-between items-center border p-4' key={service.id}>
+                        <div className='flex justify-between items-center border p-4 mb-1 border-gray-500' key={service.id}>
                             <div className='flex-1 flex justify-between'>
                                 <h1>{service.service}</h1>
                                 <h1>{service.price}</h1>

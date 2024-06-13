@@ -29,6 +29,7 @@ function App() {
     price: 0,
     taxSlab: 0,
     taxState: "",
+    comments: "",
   })
 
   const updateOrderData = (data) => {

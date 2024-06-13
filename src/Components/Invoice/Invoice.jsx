@@ -127,12 +127,13 @@ function Invoice({ invoice }) {
                 Customer Satisfaction
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t text-sm'>
-                <p className='w-[50%] border-r pl-1'>
-                    Heating and cooling systems has been checked and working properly
+                <p className='w-[65%] border-r pl-1 break-words text-wrap'>
+                    {/* overflow-hidden whitespace-nowrap text-ellipsis */}
+                    {orderData?.comments}
                 </p>
-                <p className='w-[30%] pl-1'>Recommended Next service:
+                <p className='w-[20%] pl-1'>Recommended Next service:
                 </p>
-                <p className='w-[20%] border-r'>
+                <p className='w-[15%] border-r'>
                     {orderData?.nextServiceDate}
                 </p>
             </div>

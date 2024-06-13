@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { db } from '../../firebase'
 import { collection, getDocs } from "firebase/firestore";
 import { TableDemo } from '../TableComponent/TableHelperOrders';
-import { stringify } from 'postcss';
 function OrderList() {
     const [data, setData] = useState([])
     const stringifyService = (temp) => {

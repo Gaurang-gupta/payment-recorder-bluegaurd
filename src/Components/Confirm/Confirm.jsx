@@ -32,7 +32,10 @@ function Confirm() {
         let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
-
+        if(day < 10) {
+            let currentDate = `0${day}-${month}-${year}`
+            return currentDate
+        }
         let currentDate = `${day}-${month}-${year}`;
         return currentDate
     }
@@ -73,6 +76,7 @@ function Confirm() {
         });
         temp.sort()
         temp.reverse()
+        console.log(temp)
 
         const date = new Date();
         let month = String(date.getMonth() + 1);

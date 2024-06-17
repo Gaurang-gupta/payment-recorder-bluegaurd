@@ -121,12 +121,12 @@ function OrderDetails() {
         calculatePrice()
     }
 
-    const inputStyle = "py-1 px-3 flex-1 rounded-xl xs:w-full border border-2"
+    const inputStyle = "py-1 px-3 flex-1 rounded-xl xs:w-[90%] border border-2"
     const divStyle = 'flex sm:justify-between p-2 flex-col items-start xs:mb-2 mb-2'
     return (
-        <div className='xs:w-[90%] sm:w-[90%] lg:w-4/5 mx-auto xs:h-[100vh]'>
+        <div className='xs:w-[90%] sm:w-[90%] mx-auto xs:h-[100vh] lg:w-[90%]'>
             <h1 className='text-3xl text-center py-3'>Order Details</h1>
-            <div className='flex justify-between sm:flex-col md:flex-row'>
+            <div className='flex justify-between flex-col lg:flex-row'>
                 <div className='flex-1'>
                     <div className={divStyle}>
                         <label htmlFor="serviceAvailable" className='flex-1 xs:text-sm sm:text-md xs:mr-2 sm:mr-0'>Services Availed:</label>
@@ -135,33 +135,35 @@ function OrderDetails() {
                                 Select an option
                             </option>
                             {
-                                services.map((service)=>(
-                                    <option value={service}>
+                                services.map((service, index)=>(
+                                    <option key={index} value={service}>
                                         {service}
                                     </option>
                                 ))
                             }
                         </select>
-
                         <label htmlFor="price" className='flex-1 xs:text-sm sm:text-md xs:mr-9 sm:mr-0 mt-2'>Price:</label>
                         <input type="number" min={0} id="price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} className={inputStyle} required/>
                         <button onClick={addData} className='px-7 py-2 bg-green-400 hover:bg-green-500 hover:scale-105 transition-transform text-lg rounded-3xl mt-6'>Add</button>
                     </div>
-                    <div className={divStyle}>
-                        <label htmlFor="nextServiceDate" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Next Service Date:</label>
-                        <input type="date" id="nextServiceDate" name="nextServiceDate" value={dateData} onChange={TDate} className={inputStyle} required/>
+                    <div className='flex xs:flex-row xs:justify-between sm:flex-row sm:justify-between md:flex-row md:justify-between lg:flex-col'>
+                        <div className={divStyle}>
+                            <label htmlFor="nextServiceDate" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Next Service Date:</label>
+                            <input type="date" id="nextServiceDate" name="nextServiceDate" value={dateData} onChange={TDate} className={inputStyle} required/>
+                        </div>
+                        <div className={divStyle}>
+                            <label htmlFor="comments" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Comments:</label>
+                            <textarea id="comments" name="comments" value={comments} onChange={(e) => setComments(e.target.value)} className={inputStyle} required/>
+                        </div>
                     </div>
-                    <div className={divStyle}>
-                        <label htmlFor="comments" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Comments:</label>
-                        <textarea id="comments" name="comments" value={comments} onChange={(e) => setComments(e.target.value)} className={inputStyle} required/>
-                    </div>
+                    
                     
                 </div>
                 <div className='flex-1'>
                     <h1 className='text-xl text-center mb-1'>Services</h1>
-                    {selectedServices.map(service => (
+                    {selectedServices.map((service, index) => (
                         <div className='flex justify-between items-center border p-4 mb-1 border-gray-500' key={service.id}>
-                            <div className='flex-1 flex justify-between'>
+                            <div className='flex-1 flex justify-between items-center'>
                                 <h1>{service.service}</h1>
                                 <h1>{service.price}</h1>
                             </div>
@@ -188,7 +190,7 @@ function OrderDetails() {
             
             
             
-            <div className='flex justify-around xs:pt-[4rem] md:pt-[2rem]'>
+            <div className='flex justify-around xs:pt-[4rem] md:pt-[2rem] xs:pb-4 sm:pb-4 md:pb-4'>
                 <Link to={'/'} className='px-7 py-2 bg-blue-400 hover:bg-blue-500 hover:scale-105 transition-transform text-lg rounded-3xl mt-6'>Back</Link>
                 <button onClick={handleSubmit} className='px-7 py-2 bg-green-400 hover:bg-green-500 hover:scale-105 transition-transform text-lg rounded-3xl mt-6'>Next</button>
             </div>

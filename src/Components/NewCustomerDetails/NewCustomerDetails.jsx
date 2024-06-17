@@ -1,10 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginContext } from '../../Contexts/LoginContext';
 
 const NewCustomerDetails = () => {
   const history = useNavigate();
   const { customerData, updateCustomerData } = useContext(LoginContext);
+
+  useEffect(() => {
+    updateCustomerData(
+      {
+        email: '',
+        firstname: '',
+        lastname: '',
+        addressLine1: '',
+        postalCode: '',
+        city: '',
+        state: '',
+        contactNumber: ''
+      }
+    )
+  },[])
 
   const handleChange = (e) => {
     const { name, value } = e.target;

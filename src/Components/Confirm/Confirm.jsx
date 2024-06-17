@@ -76,7 +76,6 @@ function Confirm() {
         });
         temp.sort()
         temp.reverse()
-        console.log(temp)
 
         const date = new Date();
         let month = String(date.getMonth() + 1);

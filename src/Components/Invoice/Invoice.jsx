@@ -32,8 +32,19 @@ function Invoice({ invoice }) {
         let month = date?.getMonth() + 1;
         let year = date?.getFullYear();
         const monthTable = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        let currentDate = `${day}-${monthTable[month-1]}-${year}`;
-        return currentDate
+        if(day < 10) {
+            return `0${day}-${monthTable[month-1]}-${year}`
+        }
+        else{
+            let currentDate = `${day}-${monthTable[month-1]}-${year}`;
+            return currentDate
+        }
+    }
+
+    const twoDecimal = (num) => {
+        const x = (Math.round(num * 100) / 100).toFixed(2)
+        if(x === NaN) return "-";
+        return x
     }
 
     const checkOrderData = (service) => {
@@ -87,61 +98,75 @@ function Invoice({ invoice }) {
             </div>
             <div className='w-[750px] mx-auto flex items-center border-t'>
                 <p className='w-[10%] border-r pl-1'>Province</p>
-                <p className='w-[40%] border-r pl-1'>{customerData?.state}</p>
-                <p className='w-[20%] border-r pl-1'>Postal Code</p>
-                <p className='w-[30%] pl-1'>{customerData?.postalCode}</p>
+                <p className='w-[50%] pl-1'>{customerData?.state}</p>
+                <p className='w-[20%] border-r pl-1 border-l'>Postal Code</p>
+                <p className='w-[20%] pl-1'>{customerData?.postalCode}</p>
             </div>
             <div className='w-[750px] mx-auto flex items-center border-t'>
                 <p className='w-[10%] border-r pl-1'>Email</p>
-                <p className='w-[50%] border-r pl-1'>{customerData?.email}</p>
-                <p className='w-[10%] border-r pl-1'>Phone</p>
-                <p className='w-[30%] pl-1'>{customerData?.contactNumber}</p>
+                <p className='w-[50%] pl-1'>{customerData?.email}</p>
+                <p className='w-[20%] border-r pl-1 border-l'>Phone</p>
+                <p className='w-[20%] pl-1'>{customerData?.contactNumber}</p>
             </div>
             <div className='w-[750px] mx-auto flex items-center border-t'>
                 <p className='w-[60%] border-r text-center font-bold bg-slate-100'>Service Description</p>
                 <p className='w-[40%] text-center bg-slate-100 font-bold'>Price</p>
             </div>
             {services?.map(service => (
-                <div className='w-[750px] mx-auto flex items-center border-t'>
+                <div key={service.id} className='w-[750px] mx-auto flex items-center border-t'>
                     <p className='w-[60%] border-r pl-1'>{service?.service}</p>
-                    <p className='w-[40%] text-center'>{checkOrderData(service?.service)}</p>
+                    <p className='w-[40%] text-center'>
+                            {checkOrderData(service?.service)}
+                    </p>
                 </div>
             ))}
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
-                <p className='w-[80%] border-r text-center'>Subtotal</p>
-                <p className='w-[20%] text-center'>{orderData?.price}</p>
+                <p className='w-[60%] border-r text-center'>Subtotal</p>
+                <p className='w-[40%] text-right'>
+                    <div className='w-[55%]'>
+                        {(Math.round(orderData?.price * 100) / 100).toFixed(2)}
+                    </div>
+                </p>
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
-                <p className='w-[80%] border-r text-center'>Tax</p>
-                <p className='w-[20%] text-center'>{orderData?.price * Number(orderData?.taxSlab) / 100}</p>
+                <p className='w-[60%] border-r text-center'>Tax</p>
+                <p className='w-[40%] text-right'>
+                    <div className='w-[55%]'>
+                        {(Math.round((orderData?.price * Number(orderData?.taxSlab) / 100) * 100) / 100).toFixed(2)}
+                    </div>
+                </p>
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
-                <p className='w-[80%] border-r text-center font-bold'>Total</p>
-                <p className='w-[20%] text-center'>{orderData?.price + (orderData?.price * Number(orderData?.taxSlab) / 100)}</p>
+                <p className='w-[60%] border-r text-center font-bold'>Total</p>
+                <p className='w-[40%] text-right'>
+                    <div className='w-[55%]'>
+                        {twoDecimal(orderData?.price + (orderData?.price * Number(orderData?.taxSlab) / 100))}
+                    </div>
+                </p>
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
-                <p className='w-[80%] border-r text-center'>Remarks</p>
+                <p className='w-[60%] border-r text-center'>Remarks</p>
                 {/* <p className='w-[20%] text-center'>{sessionStorage?.getItem("email")}</p> */}
             </div>
             <div className='w-[750px] mx-auto border-t font-bold pl-1'>
                 Customer Satisfaction
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t text-sm'>
-                <p className='w-[65%] border-r pl-1 break-words text-wrap'>
+                <p className='w-[60%] pl-1 break-words text-wrap'>
                     {/* overflow-hidden whitespace-nowrap text-ellipsis */}
                     {orderData?.comments}
                 </p>
-                <p className='w-[20%] pl-1'>Recommended Next service:
+                <p className='w-[20%] pl-1 border-l border-r'>Recommended Next service:
                 </p>
-                <p className='w-[15%] border-r'>
+                <p className='w-[20%] border-r'>
                     {orderData?.nextServiceDate}
                 </p>
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t h-[60px] text-sm'>
                 <p className='text-center w-[20%] border-r h-[60px] flex items-center pl-1'>Customer Signature</p>
-                <p className='w-[30%] border-r h-[70px]'></p>
+                <p className='w-[40%] border-r h-[70px]'></p>
                 <p className='text-center w-[20%] border-r h-[60px] flex items-center text-wrap'>Company Authorized Signature</p>
-                <p className='w-[30%] border-r h-[60px] flex items-center pl-1'>Not required for electronic receipt</p>
+                <p className='w-[20%] border-r h-[60px] flex items-center pl-1'>Not required for electronic receipt</p>
             </div>
         </div>
         <div className='w-[750px] mx-auto flex justify-between items-center'>

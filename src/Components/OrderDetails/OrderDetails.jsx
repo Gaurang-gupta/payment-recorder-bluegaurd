@@ -121,8 +121,8 @@ function OrderDetails() {
         calculatePrice()
     }
 
-    const inputStyle = "py-1 px-3 flex-1 rounded-xl xs:w-[90%] border border-2"
-    const divStyle = 'flex sm:justify-between p-2 flex-col items-start xs:mb-2 mb-2'
+    const inputStyle = "py-1 px-3 flex-1 rounded-xl w-full lg:w-[90%]  border border-2"
+    const divStyle = 'flex sm:justify-between p-2 flex-col items-start mb-2'
     return (
         <div className='xs:w-[90%] sm:w-[90%] mx-auto xs:h-[100vh] lg:w-[90%]'>
             <h1 className='text-3xl text-center py-3'>Order Details</h1>

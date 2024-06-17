@@ -43,7 +43,6 @@ function Invoice({ invoice }) {
 
     const twoDecimal = (num) => {
         const x = (Math.round(num * 100) / 100).toFixed(2)
-        if(x === NaN) return "-";
         return x
     }
 

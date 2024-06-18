@@ -147,13 +147,13 @@ function OrderDetails() {
                     </div>
                     <div className={divStyle}>
                         <label htmlFor="comments" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-3'>Comments:</label>
-                        <select id="commentDown" value={selectedValue} onChange={(e) => setComments(e.target.value)} className={inputStyle}>
+                        <select id="commentDown" value={comments} onChange={(e) => setComments(e.target.value)} className={inputStyle}>
                             <option value="" disabled>
                                 Select an option
                             </option>
                             {
                                 commentsOption.map((service, index)=>(
-                                    <option key={index} value={service}>
+                                    <option key={(index + 1001)} value={service}>
                                         {service}
                                     </option>
                                 ))

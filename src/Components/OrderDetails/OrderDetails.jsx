@@ -5,25 +5,20 @@ import { RxCross2 } from "react-icons/rx";
 import { Link } from 'react-router-dom';
 
 const services = [
-    "Furnace Blower Cleaning",
-    "Heating & Air Conditioning System Cleaning",
-    "Dryer Vent Cleaning Basement or First Floor",
-    "Dryer Vent Cleaning Second Floor or Higher",
-    "Power Cleaning with Sweeper Line Method",
-    "Power Cleaning & Wash with Sweeper Line Method",
-    "Regular Air Ventilation Cleaning",
-    "Filters Disposable",
-    "Filters Washable",
-    "Regular sanitization with Spray bottle",
-    "Sanitization with Fogger",
-    "Air Exchanger with its vents",
-    "Heat Pump with Split Units",
-    "Central Vacuum with Outlets",
-    "Crawling Space & Trailer House Duct cleaning",
-    "Combo 1: (Air Duct Cleaning, Blower Cleaning, Air Exchanger)",
-    "Combo 2: (Air Exchanger, Dryer Vent Cleaning)",
-    "Combo 3: (Air Duct Cleaning, Dryer Vent Cleaning)",
+    "Air duct cleaning",
+    "Air exchanger cleaning",
+    "Heat pump cleaning W/split unit",
+    "Dryer vent cleaning",
+    "Furnace blower cleaning",
+    "Power cleaning with sweeper line method",
+    "Central vacuum cleaning with outlet",
+    "Sanitizing with spray bottle",
+    "Sanitization with fogger",
     "Additional Services"
+]
+
+const commentsOption = [
+    "Heating and cooling system checked. Systems working properly",
 ]
 
 function OrderDetails() {
@@ -121,7 +116,7 @@ function OrderDetails() {
         calculatePrice()
     }
 
-    const inputStyle = "py-1 px-3 flex-1 rounded-xl w-full lg:w-[90%]  border border-2"
+    const inputStyle = "py-1 px-3 flex-1 rounded-xl w-full lg:w-[90%]  border border-2 mb-3"
     const divStyle = 'flex sm:justify-between p-2 flex-col items-start mb-2'
     return (
         <div className='xs:w-[90%] sm:w-[90%] mx-auto xs:h-[100vh] lg:w-[90%]'>
@@ -146,18 +141,27 @@ function OrderDetails() {
                         <input type="number" min={0} id="price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} className={inputStyle} required/>
                         <button onClick={addData} className='px-7 py-2 bg-green-400 hover:bg-green-500 hover:scale-105 transition-transform text-lg rounded-3xl mt-6'>Add</button>
                     </div>
-                    <div className='flex xs:flex-row xs:justify-between sm:flex-row sm:justify-between md:flex-row md:justify-between lg:flex-col'>
-                        <div className={divStyle}>
-                            <label htmlFor="nextServiceDate" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Next Service Date:</label>
-                            <input type="date" id="nextServiceDate" name="nextServiceDate" value={dateData} onChange={TDate} className={inputStyle} required/>
-                        </div>
-                        <div className={divStyle}>
-                            <label htmlFor="comments" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Comments:</label>
-                            <textarea id="comments" name="comments" value={comments} onChange={(e) => setComments(e.target.value)} className={inputStyle} required/>
-                        </div>
+                    <div className={divStyle}>
+                        <label htmlFor="nextServiceDate" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1'>Next Service Date:</label>
+                        <input type="date" id="nextServiceDate" name="nextServiceDate" value={dateData} onChange={TDate} className={inputStyle} required/>
                     </div>
-                    
-                    
+                    <div className={divStyle}>
+                        <label htmlFor="comments" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-3'>Comments:</label>
+                        <select id="commentDown" value={selectedValue} onChange={(e) => setComments(e.target.value)} className={inputStyle}>
+                            <option value="" disabled>
+                                Select an option
+                            </option>
+                            {
+                                commentsOption.map((service, index)=>(
+                                    <option key={index} value={service}>
+                                        {service}
+                                    </option>
+                                ))
+                            }
+                        </select>
+
+                        <textarea rows="6" id="comments" name="comments" value={comments} onChange={(e) => setComments(e.target.value)} className={inputStyle} required/>
+                    </div>
                 </div>
                 <div className='flex-1'>
                     <h1 className='text-xl text-center mb-1'>Services</h1>

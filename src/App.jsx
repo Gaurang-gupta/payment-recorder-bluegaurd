@@ -96,7 +96,7 @@ function App() {
   ]);
   
   return (
-    <div className={`xs:h-[100%] md:h-[100vh]`}>
+    <div className='xs:h-[100%] md:h-[100vh]'>
       <LoginContext.Provider value={{customerData, updateCustomerData, orderData, updateOrderData}}>
         <RouterProvider router={router} />
       </LoginContext.Provider>

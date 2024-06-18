@@ -5,24 +5,15 @@ function Invoice({ invoice }) {
     const {orderData, customerData} = useContext(LoginContext)
     // const componentRef = useRef();
     const services = [
-        {service: "Furnace Blower Cleaning"},
-        {service: "Heating & Air Conditioning System Cleaning"},
-        {service: "Dryer Vent Cleaning Basement or First Floor"},
-        {service: "Dryer Vent Cleaning Second Floor or Higher"},
-        {service: "Power Cleaning with Sweeper Line Method"},
-        {service: "Power Cleaning & Wash with Sweeper Line Method"},
-        {service: "Regular Air Ventilation Cleaning"},
-        {service: "Filters Disposable"},
-        {service: "Filters Washable"},
-        {service: "Regular sanitization with Spray bottle"},
-        {service: "Sanitization with Fogger"},
-        {service: "Air Exchanger with its vents"},
-        {service: "Heat Pump with Split Units"},
-        {service: "Central Vacuum with Outlets"},
-        {service: "Crawling Space & Trailer House Duct cleaning"},
-        {service: "Combo 1: (Air Duct Cleaning, Blower Cleaning, Air Exchanger)"},
-        {service: "Combo 2: (Air Exchanger, Dryer Vent Cleaning)"},
-        {service: "Combo 3: (Air Duct Cleaning, Dryer Vent Cleaning)"},
+        {service: "Air duct cleaning"},
+        {service: "Air exchanger cleaning"},
+        {service: "Heat pump cleaning W/split unit"},
+        {service: "Dryer vent cleaning"},
+        {service: "Furnace blower cleaning"},
+        {service: "Power cleaning with sweeper line method"},
+        {service: "Central vacuum cleaning with outlet"},
+        {service: "Sanitizing with spray bottle"},
+        {service: "Sanitization with fogger"},
         {service: "Additional Services"}
     ]
     const getCurrentDate = () => {
@@ -163,15 +154,15 @@ function Invoice({ invoice }) {
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t h-[60px] text-sm'>
                 <p className='text-center w-[20%] border-r h-[60px] flex items-center pl-1'>Customer Signature</p>
-                <p className='w-[40%] border-r h-[70px]'></p>
+                <input type='text' className='w-[40%] border-r h-[70px]outline-none h-full focus:outline-none'/>
                 <p className='text-center w-[20%] border-r h-[60px] flex items-center text-wrap'>Company Authorized Signature</p>
                 <p className='w-[20%] border-r h-[60px] flex items-center pl-1'>Not required for electronic receipt</p>
             </div>
         </div>
         <div className='w-[750px] mx-auto flex justify-between items-center'>
             <p>BlueGuard.ca</p>
-            <p className='font-bold'>Thank you for your business</p>
-            <p>Tel: (514) 452-6414</p>
+            <p className='font-bold'>Thank you for choosing Bluegaurd</p>
+            <p>Tel: 1-844-498-8364</p>
         </div>
     </main>
   )

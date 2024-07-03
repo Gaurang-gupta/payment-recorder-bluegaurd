@@ -34,9 +34,13 @@ function OrderDetails() {
     // for tax slab
     const [taxState, setTaxState] = useState("")
     const [taxSlab, setTaxSlab] = useState(0)
+    const [taxCode, setTaxCode] = useState("")
 
     // for comments
     const [comments, setComments] = useState("")
+
+    // for qty
+    const [qty, setQty] = useState(1)
 
 
     const handleSelectedValueChange = (event) => {
@@ -48,11 +52,22 @@ function OrderDetails() {
         QC: 15,
         NS: 15,
         NB: 15,
-        ONC: 13,
+        ON: 13,
+    }
+
+    const taxCodeTable = {
+        QC: "1231779589IC0001",
+        NS: "",
+        NB: "",
+        ON: "717998306RT5710",
     }
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(dateData === "") {
+            alert("Enter next service date")
+            return;
+        }
         updateOrderData({
             nextServiceDate: dateData,
             serviceAvailable: selectedServices,
@@ -60,6 +75,7 @@ function OrderDetails() {
             taxSlab: taxSlab,
             taxState: taxState,
             comments: comments,
+            taxCode: taxCode,
         })
         // Redirect to the next page
         history('/confirm');
@@ -68,7 +84,7 @@ function OrderDetails() {
     const subtotal = () => {
         let price = 0
         for(let service in selectedServices){
-            price += selectedServices[service].price
+            price += selectedServices[service].price * selectedServices[service].qty
         }
         return price
     }
@@ -80,10 +96,12 @@ function OrderDetails() {
 
     const handleCategorySelection = (selectedCategory) => {
         setTaxState(selectedCategory)
-        if(selectedCategory === "QC" || selectedCategory === "NS" || selectedCategory === "NB") {
-            setTaxSlab(taxTable.NS)
+        if(selectedCategory === "QC") {
+            setTaxSlab(taxTable.QC)
+            setTaxCode(taxCodeTable.QC)
         } else {
-            setTaxSlab(taxTable.ONC)
+            setTaxSlab(taxTable.ON)
+            setTaxCode(taxCodeTable.ON)
         }
         calculatePrice()
     };
@@ -98,7 +116,8 @@ function OrderDetails() {
         const dataObject = {
             id: prevId + 1,
             service: selectedValue,
-            price: Number(price)
+            price: Number(price),
+            qty: Number(qty)
         }
         setPrevId(() => (prevId + 1))
         setSelectedServices([...selectedServices, dataObject])
@@ -139,6 +158,9 @@ function OrderDetails() {
                         </select>
                         <label htmlFor="price" className='flex-1 xs:text-sm sm:text-md xs:mr-9 sm:mr-0 mt-2'>Price:</label>
                         <input type="number" min={0} id="price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} className={inputStyle} required/>
+                        
+                        <label htmlFor="qty" className='flex-1 xs:text-sm sm:text-md xs:mr-9 sm:mr-0 mt-2'>Quantity:</label>
+                        <input type="number" min={1} id="qty" name='qty' value={qty} onChange={(e) => setQty(e.target.value)} className={inputStyle} required/>
                         <button onClick={addData} className='px-7 py-2 bg-green-400 hover:bg-green-500 hover:scale-105 transition-transform text-lg rounded-3xl mt-6'>Add</button>
                     </div>
                     <div className={divStyle}>
@@ -165,24 +187,46 @@ function OrderDetails() {
                 </div>
                 <div className='flex-1'>
                     <h1 className='text-xl text-center mb-1'>Services</h1>
-                    {selectedServices.map((service, index) => (
-                        <div className='flex justify-between items-center border p-4 mb-1 border-gray-500' key={service.id}>
-                            <div className='flex-1 flex justify-between items-center'>
-                                <h1>{service.service}</h1>
-                                <h1>{service.price}</h1>
+
+                    <div className='border-gray-700 border'>
+                        
+                        <div>
+                            <div className='flex justify-between items-center p-4 mb-1'>
+                                <div className='flex-1 flex justify-between items-center'>
+                                    <h1 className='flex-[0.7]'>Service</h1>
+                                    <div className='flex items-center justify-between flex-[0.3]'>
+                                        <h1>Price</h1>
+                                        <h1>Qty</h1>
+                                    </div>
+                                </div>
+                                <div className='ml-2 cursor-pointer'>
+                                    <RxCross2 className='text-white'/>
+                                </div>
                             </div>
-                            <div className='ml-2 cursor-pointer' onClick={() => removeData(service.id)}>
-                                <RxCross2/>
-                            </div>
+                            {selectedServices.map((service, index) => (
+                                <div className='flex justify-between items-center border-t-gray-700 border-t p-4 mb-1' key={service.id}>
+                                    <div className='flex-1 flex justify-between items-center'>
+                                        <h1 className='flex-[0.7]'>{service.service}</h1>
+                                        <div className='flex items-center justify-between flex-[0.3]'>
+                                            <h1>{service.price}</h1>
+                                            <h1>{service.qty}</h1>
+                                        </div>
+                                    </div>
+                                    <div className='ml-2 cursor-pointer' onClick={() => removeData(service.id)}>
+                                        <RxCross2/>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                    <div className={divStyle}>
-                        <label htmlFor="taxCategory">Tax Slab:</label>
-                        <div className='grid grid-cols-4 gap-2 xs:text-xs sm:text-lg'>
-                            <button type="button" onClick={() => handleCategorySelection('QC')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>QC</button>
-                            <button type="button" onClick={() => handleCategorySelection('NS')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>NS</button>
-                            <button type="button" onClick={() => handleCategorySelection('NB')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>NB</button>
-                            <button type="button" onClick={() => handleCategorySelection('ONC')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>ONC</button>
+                    </div>
+                    
+                    <div className={`${divStyle} pt-6`}>
+                        <label htmlFor="taxCategory" className='text-lg'>Tax Slab:</label>
+                        <div className='pt-4 grid grid-cols-4 gap-2 xs:text-xs sm:text-lg'>
+                            <button type="button" 
+                            onClick={() => handleCategorySelection('QC')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>QC</button>
+                            <button type="button" 
+                            onClick={() => handleCategorySelection('ON')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>ON</button>
                         </div>
                         
                         <h1 className='pt-4 text-lg'>{taxSlab}%</h1>

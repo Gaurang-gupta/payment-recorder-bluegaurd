@@ -46,18 +46,9 @@ const NewCustomerDetails = () => {
         <label htmlFor="lastname" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1 sm:mb-0'>Last Name:</label>
         <input type="text" id="lastname" name="lastname" value={customerData.lastname} onChange={handleChange} className={inputStyle} required/>
       </div>
-      
-      <div className={divStyle}>
-        <label htmlFor="contactNumber" className='flex-1 xs:text-sm sm:text-md xs:mr-3 sm:mr-0 xs:mb-1 sm:mb-0'>Contact Number:</label>
-        <input type="text" id="contactNumber" name="contactNumber" value={customerData.contactNumber} onChange={handleChange} className={inputStyle} required/>
-      </div>
       <div className={divStyle}>
         <label htmlFor="addressLine1" className='flex-1 xs:text-sm sm:text-md xs:mr-3 sm:mr-0 xs:mb-1 sm:mb-0'>Address Line:</label>
         <input type="text" id="addressLine1" name="addressLine1" value={customerData.addressLine1} onChange={handleChange} className={inputStyle} required/>
-      </div>
-      <div className={divStyle}>
-        <label htmlFor="postalCode" className='flex-1 xs:text-sm sm:text-md xs:mr-6 sm:mr-0 xs:mb-1 sm:mb-0'>Postal Code:</label>
-        <input type="text" id="postalCode" name="postalCode" value={customerData.postalCode} onChange={handleChange} className={inputStyle} required/>
       </div>
       <div className={divStyle}>
         <label htmlFor="city" className='flex-1 xs:text-sm sm:text-md xs:mr-9 sm:mr-0 xs:mb-1 sm:mb-0'>City:</label>
@@ -66,6 +57,14 @@ const NewCustomerDetails = () => {
       <div className={divStyle}>
         <label htmlFor="state" className='flex-1 xs:text-sm sm:text-md xs:mr-8 sm:mr-0 xs:mb-1 sm:mb-0'>Province:</label>
         <input type="text" id="state" name="state" value={customerData.state} onChange={handleChange} className={inputStyle} required/>
+      </div>
+      <div className={divStyle}>
+        <label htmlFor="postalCode" className='flex-1 xs:text-sm sm:text-md xs:mr-6 sm:mr-0 xs:mb-1 sm:mb-0'>Postal Code:</label>
+        <input type="text" id="postalCode" name="postalCode" value={customerData.postalCode} onChange={handleChange} className={inputStyle} required/>
+      </div>
+      <div className={divStyle}>
+        <label htmlFor="contactNumber" className='flex-1 xs:text-sm sm:text-md xs:mr-3 sm:mr-0 xs:mb-1 sm:mb-0'>Contact Number:</label>
+        <input type="text" id="contactNumber" name="contactNumber" value={customerData.contactNumber} onChange={handleChange} className={inputStyle} required/>
       </div>
       <div className={divStyle}>
         <label htmlFor="email" className='flex-1 xs:text-sm sm:text-md xs:mr-5 sm:mr-0 xs:mb-1 sm:mb-0'>Email:</label>

@@ -41,7 +41,17 @@ function Invoice({ invoice }) {
         for(let s in orderData?.serviceAvailable){
             let x = orderData?.serviceAvailable[s]?.service
             if(x === service) {
-                return orderData?.serviceAvailable[s]?.price
+                return Number(orderData?.serviceAvailable[s]?.price) * Number(orderData?.serviceAvailable[s].qty)
+            }
+        }
+        return "-"
+    }
+
+    const getOrderQty = (service) => {
+        for(let s in orderData?.serviceAvailable){
+            let x = orderData?.serviceAvailable[s]?.service
+            if(x === service) {
+                return Number(orderData?.serviceAvailable[s].qty)
             }
         }
         return "-"
@@ -89,47 +99,52 @@ function Invoice({ invoice }) {
             <div className='w-[750px] mx-auto flex items-center border-t'>
                 <p className='w-[10%] border-r pl-1'>Province</p>
                 <p className='w-[50%] pl-1'>{customerData?.state}</p>
-                <p className='w-[20%] border-r pl-1 border-l'>Postal Code</p>
-                <p className='w-[20%] pl-1'>{customerData?.postalCode}</p>
+                <p className='w-[15%] border-r pl-1 border-l'>Postal Code</p>
+                <p className='w-[25%] pl-1'>{customerData?.postalCode}</p>
             </div>
             <div className='w-[750px] mx-auto flex items-center border-t'>
                 <p className='w-[10%] border-r pl-1'>Email</p>
                 <p className='w-[50%] pl-1'>{customerData?.email}</p>
-                <p className='w-[20%] border-r pl-1 border-l'>Phone</p>
-                <p className='w-[20%] pl-1'>{customerData?.contactNumber}</p>
+                <p className='w-[15%] border-r pl-1 border-l'>Phone</p>
+                <p className='w-[25%] pl-1'>{customerData?.contactNumber}</p>
             </div>
             <div className='w-[750px] mx-auto flex items-center border-t'>
                 <p className='w-[60%] border-r text-center font-bold bg-slate-100'>Service Description</p>
-                <p className='w-[40%] text-center bg-slate-100 font-bold'>Price</p>
+                <p className='w-[15%] text-center bg-slate-100 font-bold border-r'>Qty</p>
+                <p className='w-[25%] text-center bg-slate-100 font-bold'>Price</p>
             </div>
             {services?.map(service => (
                 <div key={service.id} className='w-[750px] mx-auto flex items-center border-t'>
                     <p className='w-[60%] border-r pl-1'>{service?.service}</p>
-                    <p className='w-[40%] text-center'>
-                            {checkOrderData(service?.service)}
+                    <p className='w-[15%] text-center border-r'>{getOrderQty(service?.service)}</p>
+                    <p className='w-[25%] text-center'>
+                        {checkOrderData(service?.service)}
                     </p>
                 </div>
             ))}
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
                 <p className='w-[60%] border-r text-center'>Subtotal</p>
-                <p className='w-[40%] text-right'>
-                    <div className='w-[55%]'>
+                <p className='w-[15%] border-r'></p>
+                <p className='w-[25%] text-right'>
+                    <div className='w-[60%]'>
                         {(Math.round(orderData?.price * 100) / 100).toFixed(2)}
                     </div>
                 </p>
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
-                <p className='w-[60%] border-r text-center'>Tax</p>
-                <p className='w-[40%] text-right'>
-                    <div className='w-[55%]'>
+                <p className='w-[60%] border-r text-center'>Tax ({orderData?.taxCode})</p>
+                <p className='w-[15%] border-r'></p>
+                <p className='w-[25%] text-right'>
+                    <div className='w-[60%]'>
                         {(Math.round((orderData?.price * Number(orderData?.taxSlab) / 100) * 100) / 100).toFixed(2)}
                     </div>
                 </p>
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t'>
                 <p className='w-[60%] border-r text-center font-bold'>Total</p>
-                <p className='w-[40%] text-right'>
-                    <div className='w-[55%]'>
+                <p className='w-[15%] border-r'></p>
+                <p className='w-[25%] text-right'>
+                    <div className='w-[60%]'>
                         {twoDecimal(orderData?.price + (orderData?.price * Number(orderData?.taxSlab) / 100))}
                     </div>
                 </p>
@@ -154,7 +169,7 @@ function Invoice({ invoice }) {
             </div>
             <div className='w-[750px] mx-auto flex justify-between items-center border-t h-[60px] text-sm'>
                 <p className='text-center w-[20%] border-r h-[60px] flex items-center pl-1'>Customer Signature</p>
-                <input type='text' className='w-[40%] border-r h-[70px]outline-none h-full focus:outline-none'/>
+                <input type='text' className='w-[40%] border-r h-[70px]outline-none h-full focus:outline-none' placeholder='Please type you name'/>
                 <p className='text-center w-[20%] border-r h-[60px] flex items-center text-wrap'>Company Authorized Signature</p>
                 <p className='w-[20%] border-r h-[60px] flex items-center pl-1'>Not required for electronic receipt</p>
             </div>

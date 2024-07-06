@@ -96,9 +96,11 @@ function OrderDetails() {
 
     const handleCategorySelection = (selectedCategory) => {
         setTaxState(selectedCategory)
-        if(selectedCategory === "QC") {
+        if(selectedCategory === "QC" || selectedCategory === "NS" || selectedCategory === "NB") {
             setTaxSlab(taxTable.QC)
-            setTaxCode(taxCodeTable.QC)
+            if(selectedCategory === "QC") setTaxCode(taxCodeTable.QC)
+            if(selectedCategory === "NS") setTaxCode(taxCodeTable.NS)
+            if(selectedCategory === "NB") setTaxCode(taxCodeTable.NB)
         } else {
             setTaxSlab(taxTable.ON)
             setTaxCode(taxCodeTable.ON)
@@ -227,6 +229,10 @@ function OrderDetails() {
                             onClick={() => handleCategorySelection('QC')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>QC</button>
                             <button type="button" 
                             onClick={() => handleCategorySelection('ON')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>ON</button>
+                            <button type="button" 
+                            onClick={() => handleCategorySelection('NS')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>NS</button>
+                            <button type="button" 
+                            onClick={() => handleCategorySelection('NB')} className='text-white bg-blue-600 py-2 px-4 rounded-lg hover:bg-blue-500'>NB</button>
                         </div>
                         
                         <h1 className='pt-4 text-lg'>{taxSlab}%</h1>

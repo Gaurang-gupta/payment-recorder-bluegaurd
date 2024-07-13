@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
 import { useReactToPrint } from 'react-to-print';
 import Invoice from '../Invoice/Invoice';
+import Terms from '../Terms/Terms';
 
 function Confirm() {
     const {orderData, customerData} = useContext(LoginContext)
@@ -106,6 +107,7 @@ function Confirm() {
     <div>
         <div ref={componentRef}>
             <Invoice invoice={invoiceNumber}/>
+            <Terms/>
         </div>
         <div className='flex justify-around pb-10'>
             <Link to="/orderDetails" className='px-7 py-2 bg-blue-400 hover:bg-blue-500 hover:scale-105 transition-transform text-lg rounded-3xl mt-6 text-white'>Back</Link>
